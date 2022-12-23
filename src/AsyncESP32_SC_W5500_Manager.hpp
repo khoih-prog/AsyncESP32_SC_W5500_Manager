@@ -12,11 +12,12 @@
   Built by Khoi Hoang https://github.com/khoih-prog/AsyncESP32_SC_W5500_Manager
   Licensed under MIT license
 
-  Version: 1.0.0
+  Version: 1.1.0
 
   Version Modified By  Date      Comments
   ------- -----------  ---------- -----------
-  1.0.0   K Hoang     14/12/2022 Initial coding for ESP32_S3_W5500 (ESP32_S3 + W5500)
+  1.0.0   K Hoang     14/12/2022 Initial coding for ESP32_S3_W5500 (ESP32_S3 + LwIP W5500)
+  1.1.0   K Hoang     23/12/2022 Add support to ESP32_S2/C3_W5500 (ESP32_S2/C3 + LwIP W5500)
  *****************************************************************************************************************************/
 
 #pragma once
@@ -35,8 +36,8 @@
   #endif
   
   #define USING_ESP32_S2        true
-  
-  #error ESP32_S2 not supported yet
+
+////////////////////////////////////////// 
   
 #elif ( ARDUINO_ESP32C3_DEV )
   #if (_ESPASYNC_ETH_MGR_LOGLEVEL_ > 3)
@@ -51,8 +52,8 @@
   #endif
   
   #define USING_ESP32_C3        true
-  
-  #error ESP32_C3 not supported yet
+
+//////////////////////////////////////////
   
 #elif ( defined(ARDUINO_ESP32S3_DEV) || defined(ARDUINO_ESP32_S3_BOX) || defined(ARDUINO_TINYS3) || \
         defined(ARDUINO_PROS3) || defined(ARDUINO_FEATHERS3) )
@@ -67,13 +68,13 @@
 
 ////////////////////////////////////////////////////
 
-#define ASYNC_ESP32_SC_W5500_MANAGER_VERSION           "AsyncESP32_SC_W5500_Manager v1.0.0"
+#define ASYNC_ESP32_SC_W5500_MANAGER_VERSION           "AsyncESP32_SC_W5500_Manager v1.1.0"
 
 #define ASYNC_ESP32_SC_W5500_MANAGER_VERSION_MAJOR     1
-#define ASYNC_ESP32_SC_W5500_MANAGER_VERSION_MINOR     0
+#define ASYNC_ESP32_SC_W5500_MANAGER_VERSION_MINOR     1
 #define ASYNC_ESP32_SC_W5500_MANAGER_VERSION_PATCH     0
 
-#define ASYNC_ESP32_SC_W5500_MANAGER_VERSION_INT       1000000
+#define ASYNC_ESP32_SC_W5500_MANAGER_VERSION_INT       1001000
 
 ////////////////////////////////////////////////////
 

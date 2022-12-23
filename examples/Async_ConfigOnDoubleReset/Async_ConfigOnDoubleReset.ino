@@ -26,7 +26,7 @@
  *****************************************************************************************************************************/
 
 #if !( defined(ESP32) )
-  #error This code is designed for (SP32_S2/3, ESP32_C3 + W5500) to run on ESP32 platform! Please check your Tools->Board setting.
+  #error This code is designed for (ESP32_S2/3, ESP32_C3 + W5500) to run on ESP32 platform! Please check your Tools->Board setting.
 #endif
 
 // Use from 0 to 4. Higher number, more debugging messages and memory usage.
@@ -67,6 +67,7 @@ byte mac[][NUMBER_OF_MAC] =
 
 //////////////////////////////////////////////////////////
 
+// For ESP32-S3
 // Optional values to override default settings
 // Don't change unless you know what you're doing
 //#define ETH_SPI_HOST        SPI3_HOST
@@ -79,6 +80,20 @@ byte mac[][NUMBER_OF_MAC] =
 //#define MOSI_GPIO           11
 //#define SCK_GPIO            12
 //#define CS_GPIO             10
+
+// For ESP32_C3
+// Optional values to override default settings
+// Don't change unless you know what you're doing
+//#define ETH_SPI_HOST        SPI2_HOST
+//#define SPI_CLOCK_MHZ       25
+
+// Must connect INT to GPIOxx or not working
+//#define INT_GPIO            10
+
+//#define MISO_GPIO           5
+//#define MOSI_GPIO           6
+//#define SCK_GPIO            4
+//#define CS_GPIO             7
 
 //////////////////////////////////////////////////////////
 
@@ -588,14 +603,11 @@ void setup()
   AsyncESP32_SC_W5500_manager.setCORSHeader("Your Access-Control-Allow-Origin");
 #endif
 
-  bool configDataLoaded = false;
-
   if (loadConfigData())
   {
-    configDataLoaded = true;
-
-    AsyncESP32_SC_W5500_manager.setConfigPortalTimeout(
-      120); //If no access point name has been previously entered disable timeout.
+    //If no access point name has been previously entered disable timeout.
+    AsyncESP32_SC_W5500_manager.setConfigPortalTimeout(120); 
+    
     Serial.println(F("Got stored Credentials. Timeout 120s for Config Portal"));
 
 #if USE_ESP_ETH_MANAGER_NTP

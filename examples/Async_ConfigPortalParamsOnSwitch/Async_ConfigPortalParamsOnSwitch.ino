@@ -66,6 +66,7 @@ byte mac[][NUMBER_OF_MAC] =
 
 //////////////////////////////////////////////////////////
 
+// For ESP32-S3
 // Optional values to override default settings
 // Don't change unless you know what you're doing
 //#define ETH_SPI_HOST        SPI3_HOST
@@ -78,6 +79,20 @@ byte mac[][NUMBER_OF_MAC] =
 //#define MOSI_GPIO           11
 //#define SCK_GPIO            12
 //#define CS_GPIO             10
+
+// For ESP32_C3
+// Optional values to override default settings
+// Don't change unless you know what you're doing
+//#define ETH_SPI_HOST        SPI2_HOST
+//#define SPI_CLOCK_MHZ       25
+
+// Must connect INT to GPIOxx or not working
+//#define INT_GPIO            10
+
+//#define MISO_GPIO           5
+//#define MOSI_GPIO           6
+//#define SCK_GPIO            4
+//#define CS_GPIO             7
 
 //////////////////////////////////////////////////////////
 
@@ -212,15 +227,15 @@ byte mac[][NUMBER_OF_MAC] =
    Flash button is convenient to use but if it is pressed it will stuff up the serial port device driver
    until the computer is rebooted on windows machines.
 */
-const int TRIGGER_PIN = PIN_D0;   // Pin D0 mapped to pin GPIO0/BOOT/ADC11/TOUCH1 of ESP32
+const int TRIGGER_PIN = PIN_D0;   // Pin D0 mapped to pin GPIO0/BOOT of ESP32_S3
 /*
    Alternative trigger pin. Needs to be connected to a button to use this pin. It must be a momentary connection
    not connected permanently to ground. Either trigger pin will work.
 */
 #if ( ARDUINO_ESP32C3_DEV )
-  const int TRIGGER_PIN2  = PIN_D8;       // Pin D8 mapped to pin GPIO8/FLASH_D1 of ESP32
+  const int TRIGGER_PIN2 = PIN_D8;        // Pin D8 mapped to pin GPIO8/FLASH_D1 of ESP32
 #else
-  const int TRIGGER_PIN2  = PIN_D25;      // Pin D25 mapped to pin GPIO25/ADC18/DAC1 of ESP32
+  const int TRIGGER_PIN2 = PIN_D7;        // Pin D7 mapped to pin GPIO7/ADC1_6/TOUCH7 of ESP32_S3
 #endif
 
 //////////////////////////////////////////////////////////////
@@ -786,14 +801,11 @@ void setup()
   AsyncESP32_SC_W5500_manager.setCORSHeader("Your Access-Control-Allow-Origin");
 #endif
 
-  bool configDataLoaded = false;
-
   if (loadConfigData())
   {
-    configDataLoaded = true;
-
-    AsyncESP32_SC_W5500_manager.setConfigPortalTimeout(
-      120); //If no access point name has been previously entered disable timeout.
+    //If no access point name has been previously entered disable timeout.
+    AsyncESP32_SC_W5500_manager.setConfigPortalTimeout(120); 
+    
     Serial.println(F("Got stored Credentials. Timeout 120s for Config Portal"));
 
 #if USE_ESP_ETH_MANAGER_NTP
@@ -922,8 +934,9 @@ void loop()
 
     if (loadConfigData())
     {
-      AsyncESP32_SC_W5500_manager.setConfigPortalTimeout(
-        120); //If no access point name has been previously entered disable timeout.
+      //If no access point name has been previously entered disable timeout.
+      AsyncESP32_SC_W5500_manager.setConfigPortalTimeout(120); 
+      
       Serial.println(F("Got stored Credentials. Timeout 120s for Config Portal"));
     }
     else

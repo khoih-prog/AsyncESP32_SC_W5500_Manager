@@ -12,11 +12,12 @@
   Built by Khoi Hoang https://github.com/khoih-prog/AsyncESP32_SC_W5500_Manager
   Licensed under MIT license
 
-  Version: 1.0.0
+  Version: 1.1.0
 
   Version Modified By  Date      Comments
   ------- -----------  ---------- -----------
-  1.0.0   K Hoang     14/12/2022 Initial coding for ESP32_S3_W5500 (ESP32_S3 + W5500)
+  1.0.0   K Hoang     14/12/2022 Initial coding for ESP32_S3_W5500 (ESP32_S3 + LwIP W5500)
+  1.1.0   K Hoang     23/12/2022 Add support to ESP32_S2/C3_W5500 (ESP32_S2/C3 + LwIP W5500)
  *****************************************************************************************************************************/
 
 #pragma once
